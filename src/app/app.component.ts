@@ -18,12 +18,10 @@ export interface MessageModel {
 })
 
 export class AppComponent {
-  @ViewChild('scrollMe')
-  scrollMe!: ElementRef;
-  scrollTop = 200;
+  @ViewChild('scrollMe') scrollMe!: ElementRef;
   @ViewChild('scrollMe') private myScrollContainer!: ElementRef;
-
   public socketId: string = '';
+  scrollTop = 200;
   newMessage!: string;
   messageList: any[] = [];
   showDivChat = false
@@ -33,39 +31,28 @@ export class AppComponent {
 
   ngOnInit() {
     this.scrollToBottom();
-
-    // this.socketId = this.chatService.senderID;
-
-
-
     this.chatService.getNewMessage().subscribe((message: any) => {
-
       this.socketId = this.chatService.reciverID;
-      console.log(this.socketId, 'this.socketIdthis.socketIdthis.socketId')
       if (message) {
         this.messageList.push({ message: message, senderId: this.socketId });
-        console.log(this.messageList, 'this.messageListthis.messageList')
       }
     })
   }
 
   sendMessage() {
-
-
-   
     this.chatService.sendMessage(this.newMessage);
     this.newMessage = '';
-   
+
   }
 
-  ngAfterViewChecked() {        
-    this.scrollToBottom();        
-} 
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
 
-scrollToBottom(): void {
+  scrollToBottom(): void {
     try {
-        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-    } catch(err) { }                 
-}
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch (err) { }
+  }
 }
 
