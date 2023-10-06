@@ -26,9 +26,7 @@ export class AppComponent {
   messageList: any[] = [];
   showDivChat = false
   constructor(private chatService: ChatService) {
-
   }
-
   ngOnInit() {
     this.scrollToBottom();
     this.chatService.getNewMessage().subscribe((message: any) => {
@@ -38,17 +36,13 @@ export class AppComponent {
       }
     })
   }
-
   sendMessage() {
     this.chatService.sendMessage(this.newMessage);
     this.newMessage = '';
-
   }
-
   ngAfterViewChecked() {
     this.scrollToBottom();
   }
-
   scrollToBottom(): void {
     try {
       this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
